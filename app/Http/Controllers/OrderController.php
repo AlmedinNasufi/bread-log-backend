@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Traits\ApiResponse;
+use Illuminate\Http\Response;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
-use App\Models\Order;
-use Illuminate\Http\Response;
+
 class OrderController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $orders = Order::with(['user', 'product'])->paginate(10);
-        return $this->returnJson($orders, status: Response::HTTP_OK, message: "Orders fetched successfully");
+        // return $this->returnJson($orders, status: Response::HTTP_OK, message: "Orders fetched successfully");
+        return $this->sendResponse($orders, "Orders fetched successfully", Response::HTTP_OK);
     }
 
     /**

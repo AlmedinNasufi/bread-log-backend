@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Traits;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
-class ApiController extends Controller
+trait ApiResponse
 {
     /**
      * Send success response
