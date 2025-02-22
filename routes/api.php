@@ -6,7 +6,16 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
-Route::get("/products", [ProductController::class, "index"]);
+Route::controller(ProductController::class)->prefix("products")->group(function() {
+
+    Route::middleware('jwt.auth.token')->group(function() {
+        Route::get('', 'index');
+        Route::get("/{id}", "show");
+        Route::post('', 'store');
+        Route::put("/{id}", "update");
+        Route::delete("/{id}", "destroy");
+    });
+});
 
 // /api/
 Route::controller(OrderController::class)->prefix("orders")->group(function() {
