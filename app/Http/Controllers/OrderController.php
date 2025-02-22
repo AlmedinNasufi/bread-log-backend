@@ -68,13 +68,4 @@ class OrderController extends Controller
     {
         //
     }
-
-    private function returnJson($data, $status = Response::HTTP_OK, $message = "success")
-    {
-        return response()->json([
-            "data" => $data,
-            "status" => $status,
-            "message" => $message
-        ]);
-    }
 }

@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Traits\ApiResponse;
+use Illuminate\Http\Response;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Models\Product;
-use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $products = Product::paginate(20);
-
-        return $this->returnJson($products, status: Response::HTTP_OK, message: "Products fetched successfully");
+        return $this->sendResponse($products, 'Products fetched successfully', Response::HTTP_OK);
     }
 
     /**
@@ -65,14 +66,5 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
-    }
-
-    private function returnJson($data, $status = Response::HTTP_OK, $message = "success")
-    {
-        return response()->json([
-            "data" => $data,
-            "status" => $status,
-            "message" => $message
-        ]);
     }
 }
