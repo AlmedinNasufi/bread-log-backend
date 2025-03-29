@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Mail\TestMail;
 
 Route::controller(ProductController::class)->prefix("products")->group(function() {
 
@@ -33,6 +35,13 @@ Route::controller(AuthController::class)->prefix('auth')->middleware('api')->gro
         Route::post('logout', 'logout')->name('auth.logout');
         Route::get('me', 'me')->name('auth.me');
     });
+});
+
+Route::get('test-mail', function() {
+    Mail::to('almedin.nasufi20@gmail.com')->send(new TestMail([
+        'title' => 'The Title',
+        'body' => 'The Body',
+    ]));
 });
 
 
